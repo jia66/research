@@ -10,14 +10,14 @@ export PYTHONPATH=$PYTHONPATH:$DIR:$DIR/slim:$DIR/object_detection
 
 # 定义各目录
 output_dir=/output  # 训练目录
-dataset_dir=/data/jia0/car-detection-fasterrcnn-inception-resnet # 数据集目录，这里是写死的，记得修改
+dataset_dir=/data/jia0/faster-rcnn-nas-coco-2018-01-28 # 数据集目录，这里是写死的，记得修改
 
 train_dir=$output_dir/train
 checkpoint_dir=$train_dir
 eval_dir=$output_dir/eval
 
 # config文件
-config=faster_rcnn_inception_resnet4.config
+config=pipeline8.config
 pipeline_config_path=$output_dir/$config
 
 # 先清空输出目录，本地运行会有效果，tinymind上运行这一行没有任何效果

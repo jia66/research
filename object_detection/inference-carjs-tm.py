@@ -37,7 +37,7 @@ if __name__ == '__main__':
     tfrecord_files = "/data/jia0/faster-rcnn-nas-coco-2018-01-28/inference.tfrecord-*"
     #tfrecord_files = "/data/jia0/car-detection-fasterrcnn-inception-resnet/train1w.tfrecord-*"
 
-    export_file = os.path.join(FLAGS.output_dir, 'example_frcnn_nas_0775.csv')
+    export_file = os.path.join(FLAGS.output_dir, 'example_frcnn_nas_99_0775.csv')
     #export_file = os.path.join(FLAGS.output_dir, 'example_1w.csv')
 
 
