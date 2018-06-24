@@ -32,12 +32,12 @@ if __name__ == '__main__':
 
 
     PATH_TO_CKPT = '/output/exported_graphs/frozen_inference_graph.pb'
-    PATH_TO_LABELS = '/data/jia0/faster-rcnn-nas-coco-2018-01-28/label_map.pbtxt'
+    PATH_TO_LABELS = '/data/jia0/faster-rcnn-resnet101-kitti-2018-01-28/label_map.pbtxt'
 
-    tfrecord_files = "/data/jia0/faster-rcnn-nas-coco-2018-01-28/inference.tfrecord-*"
+    tfrecord_files = "/data/jia0/faster-rcnn-resnet101-kitti-2018-01-28/inference.tfrecord-*"
     #tfrecord_files = "/data/jia0/car-detection-fasterrcnn-inception-resnet/train1w.tfrecord-*"
 
-    export_file = os.path.join(FLAGS.output_dir, 'nas_99_07.csv')
+    export_file = os.path.join(FLAGS.output_dir, 'resnet101_07.csv')
     #export_file = os.path.join(FLAGS.output_dir, 'example_1w.csv')
 
     threhold = 0.7

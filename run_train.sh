@@ -10,14 +10,14 @@ export PYTHONPATH=$PYTHONPATH:$DIR:$DIR/slim:$DIR/object_detection
 
 # 定义各目录
 output_dir=/output  # 训练目录
-dataset_dir=/data/jia0/faster-rcnn-nas-coco-2018-01-28 # 数据集目录，这里是写死的，记得修改
+dataset_dir=/data/jia0/faster-rcnn-resnet101-kitti-2018-01-28 # 数据集目录，这里是写死的，记得修改
 
 train_dir=$output_dir/train
 checkpoint_dir=$train_dir
 eval_dir=$output_dir/eval
 
 # config文件
-config=pipeline8.config
+config=pipeline.config
 pipeline_config_path=$output_dir/$config
 
 # 先清空输出目录，本地运行会有效果，tinymind上运行这一行没有任何效果
@@ -30,7 +30,7 @@ cp $dataset_dir/$config $pipeline_config_path
 python ./object_detection/train.py --train_dir=$train_dir --pipeline_config_path=$pipeline_config_path
 
 # 导出模型
-python ./object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path $pipeline_config_path --trained_checkpoint_prefix $train_dir/model.ckpt-20000  --output_directory $output_dir/exported_graphs
+python ./object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path $pipeline_config_path --trained_checkpoint_prefix $train_dir/model.ckpt-40000 --output_directory $output_dir/exported_graphs
 
 # 在test.jpg上验证导出的模型
-#python ./object_detection/inference.py --output_dir=$output_dir --dataset_dir=$dataset_dir
+python ./object_detection/inference-carjs-tm.py --output_dir=$output_dir
