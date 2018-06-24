@@ -37,8 +37,10 @@ if __name__ == '__main__':
     tfrecord_files = "/data/jia0/faster-rcnn-nas-coco-2018-01-28/inference.tfrecord-*"
     #tfrecord_files = "/data/jia0/car-detection-fasterrcnn-inception-resnet/train1w.tfrecord-*"
 
-    export_file = os.path.join(FLAGS.output_dir, 'example_frcnn_nas_99_0775.csv')
+    export_file = os.path.join(FLAGS.output_dir, 'example_frcnn_nas_99_07.csv')
     #export_file = os.path.join(FLAGS.output_dir, 'example_1w.csv')
+
+    threhold = 0.7
 
 
 
@@ -113,7 +115,7 @@ if __name__ == '__main__':
                 for i in range(len(classes_squeeze)):
                     # if (classes_squeeze[i] == 3 or classes_squeeze[i] == 8) and scores_squeeze[i] > 0.85:
                     # if classes_squeeze[i] == 3 or classes_squeeze[i] == 6 or classes_squeeze[i] == 8 :
-                    if scores_squeeze[i] > 0.775:
+                    if scores_squeeze[i] > threhold:
                         ymin = int(round(boxes_squeeze[i][0] * height))
                         xmin = int(round(boxes_squeeze[i][1] * width))
                         h = int(round((boxes_squeeze[i][2] - boxes_squeeze[i][0]) * height))
