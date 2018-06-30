@@ -102,3 +102,13 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+*.bak
+*.bak
+run_train.sh.bak
+runod.cmd
+*.cmd
+*.cmd
+run_train.sh.bak
+run_train.sh.bak
+runod.cmd
+runod.cmd
