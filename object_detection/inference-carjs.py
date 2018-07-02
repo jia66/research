@@ -31,13 +31,13 @@ if __name__ == '__main__':
     FLAGS, unparsed = parse_args()
 
 
-    PATH_TO_CKPT = '/output/exported_graphs/frozen_inference_graph.pb'
-    PATH_TO_LABELS = '/data/jia0/faster-rcnn-inception-resnet-v2-coco-2018-01-28/label_map.pbtxt'
+    PATH_TO_CKPT = 'C:/AI/models-r1.5/models/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28/exported_graphs/frozen_inference_graph.pb'
+    PATH_TO_LABELS = 'C:/AI/models-r1.5/models/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28/label_map.pbtxt'
 
-    tfrecord_files = "/data/jia0/faster-rcnn-inception-resnet-v2-coco-2018-01-28/inference.tfrecord-*"
+    tfrecord_files = "C:/AI/models-r1.5/models/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28/inference.tfrecord-*"
     #tfrecord_files = "/data/jia0/car-detection-fasterrcnn-inception-resnet/train1w.tfrecord-*"
 
-    export_file = os.path.join(FLAGS.output_dir, 'inception-resnet_bright_0775.csv')
+    export_file = os.path.join(FLAGS.output_dir, 'inception-resnet_99_6_0775.csv')
     #export_file = os.path.join(FLAGS.output_dir, 'example_1w.csv')
 
     threhold = 0.775
