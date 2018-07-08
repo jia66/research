@@ -34,4 +34,4 @@ pipeline_config_path=$output_dir/$config
 
 # 预测
 #python ./object_detection/inference.py --output_dir=$output_dir --dataset_dir=$dataset_dir
-python ./object_detection/inference-carjs-tm.py --output_dir=$output_dir
+python ./object_detection/inference-carjs-tm-br.py --output_dir=$output_dir
