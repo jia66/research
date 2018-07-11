@@ -680,8 +680,8 @@ def random_adjust_brightness(image, max_delta=0.2):
     boxes: boxes which is the same shape as input boxes.
   """
   with tf.name_scope('RandomAdjustBrightness', values=[image]):
-    #image = tf.image.random_brightness(image, max_delta)
-    image = tf.image.adjust_brightness(image, max_delta)
+    image = tf.image.random_brightness(image, max_delta)
+    #image = tf.image.adjust_brightness(image, max_delta)
     image = tf.clip_by_value(image, clip_value_min=0.0, clip_value_max=1.0)
     return image
 

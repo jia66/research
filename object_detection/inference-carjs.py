@@ -1,7 +1,8 @@
 import argparse
 import os
 import io
-
+import cv2
+import math
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -27,17 +28,71 @@ def parse_args(check=True):
     return FLAGS, unparsed
 
 
+def isDark(img, pic):
+    # 把图片转换为灰度图
+    gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY);
+    # 获取灰度图矩阵的行数和列数
+    r, c = gray_img.shape[:2];
+    dark_sum = 0;  # 偏暗的像素 初始化为0个
+    dark_prop = 0;  # 偏暗像素所占比例初始化为0
+    piexs_sum = r * c;  # 整个弧度图的像素个数为r*c
+
+    # 遍历灰度图的所有像素
+    for row in gray_img:
+        for colum in row:
+            if colum < 40:  # 人为设置的超参数,表示0~39的灰度值为暗
+                dark_sum += 1;
+    dark_prop = dark_sum / (piexs_sum);
+    # print("dark_sum:"+str(dark_sum));
+    # print("piexs_sum:"+str(piexs_sum));
+    # print("dark_prop=dark_sum/piexs_sum:"+str(dark_prop));
+    if dark_prop >= 0.75:  # 人为设置的超参数:表示若偏暗像素所占比例超过0.78,则这张图被认为整体环境黑暗的图片
+        print(pic + " is dark!");
+        return True
+    else:
+        return False
+        #cv2.imwrite("./DarkPicDir/" + pic, img);  # 把被认为黑暗的图片保存
+
+def bright(img):
+    w = img.shape[1]
+    h = img.shape[0]
+    ii = 0
+    for xi in range(0, w):
+        for xj in range(0, h):
+            r = img[xj, xi, 0]
+            g = img[xj, xi, 1]
+            b = img[xj, xi, 2]
+            #if int(r) + int(b) + int(g) < 150:
+            rtmp = int(r * 1.3 + 10)
+            gtmp = int(g * 1.3 + 10)
+            btmp = int(b * 1.3 + 10)
+            if rtmp < 128 and gtmp < 128 and btmp < 128:
+                img[xj, xi, 0] = rtmp
+                img[xj, xi, 1] = gtmp
+                img[xj, xi, 2] = btmp
+            else:
+                img[xj, xi, 0] = r
+                img[xj, xi, 1] = g
+                img[xj, xi, 2] = b
+
+    '''cv2.namedWindow('img')
+    cv2.imshow('img', img)
+    cv2.waitKey()
+    cv2.destroyAllWindows()'''
+    return img
+
+
 if __name__ == '__main__':
     FLAGS, unparsed = parse_args()
 
 
-    PATH_TO_CKPT = 'C:/AI/models-r1.5/models/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28/exported_graphs/frozen_inference_graph.pb'
+    PATH_TO_CKPT = 'C:/AI/js/car/export/frcnn_in_re_1W_99_6W_2W/frozen_inference_graph.pb'
     PATH_TO_LABELS = 'C:/AI/models-r1.5/models/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28/label_map.pbtxt'
 
     tfrecord_files = "C:/AI/models-r1.5/models/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28/inference.tfrecord-*"
     #tfrecord_files = "/data/jia0/car-detection-fasterrcnn-inception-resnet/train1w.tfrecord-*"
 
-    export_file = os.path.join(FLAGS.output_dir, 'inception-resnet_99_6_0775.csv')
+    export_file = os.path.join(FLAGS.output_dir, 'inception-resnet_99_0775_bri.csv')
     #export_file = os.path.join(FLAGS.output_dir, 'example_1w.csv')
 
     threhold = 0.775
@@ -101,6 +156,9 @@ if __name__ == '__main__':
                 encoded_jpg_io = io.BytesIO(imgraw)
                 image = Image.open(encoded_jpg_io)
                 image_np = load_image_into_numpy_array(image)
+                darkFlag = isDark(image_np, str(imgname, encoding = "utf-8"))
+                if darkFlag:
+                    image_np = bright(image_np)
                 image_np_expanded = np.expand_dims(image_np, axis=0)
 
                 (boxes, scores, classes) = sess.run(

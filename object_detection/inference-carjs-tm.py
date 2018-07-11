@@ -37,7 +37,7 @@ if __name__ == '__main__':
     tfrecord_files = "/data/jia0/faster-rcnn-inception-resnet-v2-coco-2018-01-28/inference.tfrecord-*"
     #tfrecord_files = "/data/jia0/car-detection-fasterrcnn-inception-resnet/train1w.tfrecord-*"
 
-    export_file = os.path.join(FLAGS.output_dir, 'inception-resnet_bright_0775.csv')
+    export_file = os.path.join(FLAGS.output_dir, 'inception-resnet_prepro_6W.csv')
     #export_file = os.path.join(FLAGS.output_dir, 'example_1w.csv')
 
     threhold = 0.775
