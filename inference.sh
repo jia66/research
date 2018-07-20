@@ -17,7 +17,7 @@ checkpoint_dir=$train_dir
 eval_dir=$output_dir/eval
 
 # config文件
-config=pipeline16.config
+config=pipeline17.config
 pipeline_config_path=$output_dir/$config
 
 # 先清空输出目录，本地运行会有效果，tinymind上运行这一行没有任何效果
@@ -30,7 +30,7 @@ pipeline_config_path=$output_dir/$config
 #python ./object_detection/train.py --train_dir=$train_dir --pipeline_config_path=$pipeline_config_path
 
 # 导出模型
-#python ./object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path $pipeline_config_path --trained_checkpoint_prefix $train_dir/model.ckpt-111476  --output_directory $output_dir/exported_graphs
+#python ./object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path $pipeline_config_path --trained_checkpoint_prefix $train_dir/model.ckpt-100000 --output_directory $output_dir/exported_graphs
 
 # 预测
 python ./object_detection/inference.py --output_dir=$output_dir --dataset_dir=$dataset_dir
